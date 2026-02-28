@@ -80,7 +80,7 @@ async def fetch_html_playwright(url: str) -> str:
 
 async def fetch_html(url: str) -> str:
     """URL의 HTML 본문 반환 (에러 시 빈 문자열). 먼저 httpx, 403이면 Chrome 위장 curl_cffi 재시도."""
-    if "jinair.com" in url or "parataair.com" in url:
+    if "jinair.com" in url or "parataair.com" in url or "flyairseoul.com" in url:
         return await fetch_html_drission(url)
         
     headers = browser_headers(url)
