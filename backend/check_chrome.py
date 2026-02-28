@@ -23,6 +23,7 @@ def test_chrome():
         co.set_argument('--no-sandbox')
         co.set_argument('--disable-gpu')
         co.set_argument('--disable-dev-shm-usage')
+        co.set_user_agent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36')
         
         page = ChromiumPage(addr_or_opts=co)
         print("✅ 브라우저 성공적으로 켜짐! 사이트 접속 시도...")
