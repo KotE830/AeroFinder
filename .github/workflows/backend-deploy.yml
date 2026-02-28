@@ -1,0 +1,38 @@
+name: Deploy Backend to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**' # 백엔드 코드에 변경사항이 있을 때만 실행
+  workflow_dispatch: # 수동 실행 버튼 활성화
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to Lightsail via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LIGHTSAIL_HOST }}
+          username: ${{ secrets.LIGHTSAIL_USERNAME }}
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          script: |
+            # 서버 내부 작업
+            cd ~/AeroFinder
+            
+            # 최신 코드 가져오기 (충돌 방지를 위해 stash 후 pull)
+            git stash
+            git pull origin main
+            
+            # 가상환경 진입 및 패키지 설치
+            cd backend
+            source venv/bin/activate
+            pip install -r requirements.txt
+            
+            # 서비스 재시작
+            sudo systemctl restart aerofinder
+            
+            echo "Deployment completed successfully!"

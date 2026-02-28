@@ -1,0 +1,93 @@
+.add-airline .header {
+  margin-bottom: 1.5rem;
+}
+
+.add-airline .header .btn {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.add-airline .header .btn:hover {
+  background: #e2e8f0;
+}
+
+.error-banner {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.add-airline .section {
+  margin-bottom: 2rem;
+}
+
+.add-airline .section h2 {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+  color: #334155;
+}
+
+.fetch-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fetch-form .input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.add-airline label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.selector-label {
+  margin-top: 0.75rem;
+}
+
+.add-airline label .input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+.required {
+  color: #dc2626;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.form-actions .btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+}
+
+.form-actions .btn:hover {
+  background: #e2e8f0;
+}

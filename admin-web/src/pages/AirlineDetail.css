@@ -1,0 +1,179 @@
+.detail .header {
+  margin-bottom: 2rem;
+}
+
+.detail .back {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.detail .back:hover {
+  text-decoration: underline;
+}
+
+.detail .header h1 {
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+  color: #334155;
+}
+
+.basic-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 32rem;
+}
+
+.basic-info-form label {
+  display: block;
+}
+
+.basic-info-form .input-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #475569;
+  margin-bottom: 0.25rem;
+}
+
+.basic-info-form .hint {
+  margin: 0.25rem 0 0;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0 0 0.75rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+.list.urls .url-row {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.url-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.url-selectors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 1rem;
+}
+
+.url-selectors .selector-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.url-selectors .selector-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.url-selectors .input.small {
+  min-width: 160px;
+  font-size: 0.85rem;
+}
+
+.add-url-form {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.add-url-form .input-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #475569;
+  margin-bottom: 0.25rem;
+}
+
+.add-url-form label {
+  display: block;
+}
+
+.url-link {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #2563eb;
+  font-size: 0.9rem;
+}
+
+.url-link:hover {
+  text-decoration: underline;
+}
+
+.keyword-text {
+  flex: 1;
+}
+
+.badge {
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.add-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}

@@ -1,0 +1,109 @@
+/* Highlight class added to hovered elements */
+.aerofinder-highlight-hover {
+  outline: 2px dashed #ff4757 !important;
+  outline-offset: -2px !important;
+  background-color: rgba(255, 71, 87, 0.1) !important;
+  cursor: crosshair !important;
+}
+
+/* Extension UI overlay */
+#aerofinder-overlay-panel {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  background-color: #ffffff !important;
+  border: 1px solid #dfe4ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  padding: 16px !important;
+  z-index: 2147483647 !important; /* Max z-index to appear on top of everything */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  width: 320px !important;
+  color: #333 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+#aerofinder-overlay-panel h3 {
+  margin: 0 !important;
+  font-size: 16px !important;
+  color: #2f3542 !important;
+  font-weight: bold !important;
+}
+
+#aerofinder-overlay-panel .content-preview {
+  font-size: 12px !important;
+  color: #747d8c !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#aerofinder-overlay-panel .selector-result {
+  background-color: #f1f2f6 !important;
+  padding: 8px !important;
+  border-radius: 4px !important;
+  font-family: monospace !important;
+  font-size: 12px !important;
+  word-break: break-all !important;
+  min-height: 40px !important;
+  max-height: 80px !important;
+  overflow-y: auto !important;
+  border: 1px solid #ced6e0 !important;
+}
+
+#aerofinder-overlay-panel .button-group {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+#aerofinder-overlay-panel button {
+  background-color: #1e90ff !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  flex: 1 !important;
+  transition: background-color 0.2s !important;
+}
+
+#aerofinder-overlay-panel button:hover {
+  background-color: #0c7cd7 !important;
+}
+
+#aerofinder-overlay-panel button.btn-close {
+  background-color: #ff4757 !important;
+}
+
+#aerofinder-overlay-panel button.btn-close:hover {
+  background-color: #ed2939 !important;
+}
+
+/* Toast notification */
+.aerofinder-toast {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  background-color: rgba(47, 53, 66, 0.9) !important;
+  color: white !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  z-index: 2147483647 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+  pointer-events: none !important;
+}
+
+.aerofinder-toast.show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

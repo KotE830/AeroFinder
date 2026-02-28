@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "AeroFinder Visual Scraper",
+  "version": "1.0",
+  "description": "Visual tool to select HTML components for AeroFinder scraping.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_title": "Toggle Selector Mode"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"]
+    }
+  ]
+}
