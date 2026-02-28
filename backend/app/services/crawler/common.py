@@ -40,6 +40,7 @@ def _sync_fetch_html_drission(url: str) -> str:
         import time
         
         co = ChromiumOptions()
+        co.auto_port()
         co.set_browser_path('/usr/bin/google-chrome')
         co.set_argument('--window-size=1920,1080')
         co.set_argument('--disable-blink-features=AutomationControlled')
