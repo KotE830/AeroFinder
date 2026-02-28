@@ -37,17 +37,11 @@ async def test_pw():
                 viewport={'width': 1920, 'height': 1080}
             )
             page = await context.new_page()
-            # 봇 방어막 우회 플러그인 장착
-            import inspect
-            if hasattr(playwright_stealth, 'stealth'):
-                print("🚀 'stealth' 함수(2.0.2 버전)로 진행합니다.")
-                if inspect.iscoroutinefunction(playwright_stealth.stealth):
-                    await playwright_stealth.stealth(page)
-                else:
-                    playwright_stealth.stealth(page)
-            else:
-                print("❌ stealth 적용 방법을 찾지 못했습니다!")
-                return
+            
+            # 봇 방어막 우회 플러그인 장착 (playwright-stealth 2.0.2 API)
+            print("🚀 'Stealth' 클래스의 'apply_stealth_async' 메서드로 진행합니다.")
+            stealth = playwright_stealth.Stealth()
+            await stealth.apply_stealth_async(page)
             await page.goto('https://www.jinair.com/promotion/inprogressEvent')
             
             print("⏳ 로딩 & Cloudflare 우회 대기 (15초)...")
