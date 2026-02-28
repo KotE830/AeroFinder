@@ -5,7 +5,16 @@ async def test_pw():
     print("⏳ Playwright-Stealth 로드 중...")
     try:
         from playwright.async_api import async_playwright
-        from playwright_stealth import stealth_async
+        import playwright_stealth
+        print("✅ playwright-stealth 2.0.2 API 목록:")
+        print(dir(playwright_stealth))
+        
+        # Try finding the correct class or function
+        if hasattr(playwright_stealth, 'Stealth'):
+            print("🚀 'Stealth' 클래스로 진행합니다.")
+        elif hasattr(playwright_stealth, 'stealth'):
+            print("🚀 'stealth' 함수로 진행합니다.")
+            
     except Exception as e:
         import traceback
         print(f"❌ 패키지 로드 실패. 이유:\n{traceback.format_exc()}")
@@ -30,11 +39,18 @@ async def test_pw():
                 viewport={'width': 1920, 'height': 1080}
             )
             page = await context.new_page()
-            
+            import playwright_stealth
             # 봇 방어막 우회 플러그인 장착
-            await stealth_async(page)
-            
-            print("✅ 브라우저 열림, 진에어 접속 중...")
+            if hasattr(playwright_stealth, 'Stealth'):
+                stealth = playwright_stealth.Stealth()
+                await stealth.apply_async(page) # or whatever it uses, we will see if this fails
+            elif hasattr(playwright_stealth, 'stealth'):
+                await playwright_stealth.stealth(page)
+            elif hasattr(playwright_stealth, 'stealth_async'):
+                await playwright_stealth.stealth_async(page)
+            else:
+                print("❌ stealth 적용 방법을 찾지 못했습니다!")
+                return
             await page.goto('https://www.jinair.com/promotion/inprogressEvent')
             
             print("⏳ 로딩 & Cloudflare 우회 대기 (15초)...")
