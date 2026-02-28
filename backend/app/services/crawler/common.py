@@ -42,6 +42,10 @@ def _sync_fetch_html_drission(url: str) -> str:
         co = ChromiumOptions()
         co.set_argument('--window-size=1920,1080')
         co.set_argument('--disable-blink-features=AutomationControlled')
+        co.set_argument('--headless')
+        co.set_argument('--no-sandbox')
+        co.set_argument('--disable-gpu')
+        co.set_argument('--disable-dev-shm-usage')
         
         page = ChromiumPage(addr_or_opts=co)
         page.set.window.mini() # 화면 최소화
