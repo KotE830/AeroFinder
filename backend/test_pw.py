@@ -6,8 +6,9 @@ async def test_pw():
     try:
         from playwright.async_api import async_playwright
         from playwright_stealth import stealth_async
-    except ImportError:
-        print("❌ playwright 또는 playwright-stealth 패키지가 깔려있지 않습니다. pip install playwright playwright-stealth 실행 바랍니다.")
+    except Exception as e:
+        import traceback
+        print(f"❌ 패키지 로드 실패. 이유:\n{traceback.format_exc()}")
         return
 
     print("✅ 준비 완료, 브라우저 시작...")
