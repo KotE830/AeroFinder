@@ -1,0 +1,57 @@
+import asyncio
+import time
+
+async def test_pw():
+    print("⏳ Playwright-Stealth 로드 중...")
+    try:
+        from playwright.async_api import async_playwright
+        from playwright_stealth import stealth_async
+    except ImportError:
+        print("❌ playwright 또는 playwright-stealth 패키지가 깔려있지 않습니다. pip install playwright playwright-stealth 실행 바랍니다.")
+        return
+
+    print("✅ 준비 완료, 브라우저 시작...")
+    try:
+        async with async_playwright() as p:
+            # xvfb 환경이므로 headless=False 로 실행
+            browser = await p.chromium.launch(
+                headless=False,
+                args=[
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-gpu',
+                    '--disable-dev-shm-usage',
+                    '--window-size=1920,1080',
+                ]
+            )
+            context = await browser.new_context(
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                viewport={'width': 1920, 'height': 1080}
+            )
+            page = await context.new_page()
+            
+            # 봇 방어막 우회 플러그인 장착
+            await stealth_async(page)
+            
+            print("✅ 브라우저 열림, 진에어 접속 중...")
+            await page.goto('https://www.jinair.com/promotion/inprogressEvent')
+            
+            print("⏳ 로딩 & Cloudflare 우회 대기 (15초)...")
+            await asyncio.sleep(15)
+            
+            title = await page.title()
+            print(f"✅ 접속 완료 타이틀: {title}")
+            
+            source = await page.content()
+            if "Attention Required!" in title or "challenge" in source.lower():
+                print("❌ 여전히 Cloudflare 봇 검문소에 막혀있습니다!")
+            else:
+                print("🎉 클라우드플레어 우회 대성공! 진짜 진에어 페이지 로딩됨!")
+                
+            await browser.close()
+            
+    except Exception as e:
+        print(f"❌ 실행 중 치명적 에러 발생: {e}")
+
+if __name__ == "__main__":
+    asyncio.run(test_pw())
