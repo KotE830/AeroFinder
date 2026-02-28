@@ -26,7 +26,7 @@ function disableSelectionMode() {
   document.removeEventListener("mouseover", handleMouseOver, true);
   document.removeEventListener("mouseout", handleMouseOut, true);
   document.removeEventListener("click", handleClick, true);
-  
+
   if (currentHighlighted) {
     currentHighlighted.classList.remove("aerofinder-highlight-hover");
     currentHighlighted = null;
@@ -38,11 +38,11 @@ function handleMouseOver(event) {
   if (!isActive) return;
   // Ignore our own overlay
   if (event.target.closest('#aerofinder-overlay-panel')) return;
-  
+
   if (currentHighlighted) {
     currentHighlighted.classList.remove("aerofinder-highlight-hover");
   }
-  
+
   currentHighlighted = event.target;
   currentHighlighted.classList.add("aerofinder-highlight-hover");
 }
@@ -57,7 +57,7 @@ function handleMouseOut(event) {
 
 function handleClick(event) {
   if (!isActive) return;
-  
+
   // Ignore clicks inside our overlay
   if (event.target.closest('#aerofinder-overlay-panel')) return;
 
@@ -67,45 +67,49 @@ function handleClick(event) {
   const target = event.target;
   const selector = generateCssSelector(target);
   const textContent = target.innerText || target.textContent || "";
-  
+
   updateOverlay(selector, textContent.trim().substring(0, 50));
 }
 
-function generateCssSelector(el) {
-  if (el.tagName.toLowerCase() === "html") return "html";
-  if (el.tagName.toLowerCase() === "body") return "body";
-  
-  let path = [];
-  let current = el;
-  
-  // Go up 3 levels maximum to keep the selector relatively simple but specific enough
-  let depth = 0;
-  while (current && current.tagName.toLowerCase() !== "html" && depth < 4) {
-    let selector = current.tagName.toLowerCase();
-    
-    // Classes
-    const classes = Array.from(current.classList).filter(c => c !== 'aerofinder-highlight-hover');
-    if (classes.length > 0) {
-      // Use up to first 2 classes to avoid overly long selectors, and avoid randomly generated strings if possible
-      const validClasses = classes.filter(c => !/\d/.test(c)).slice(0, 2);
-      if (validClasses.length > 0) {
-          selector += '.' + validClasses.join('.');
-      } else {
-          selector += '.' + classes[0]; // fallback
-      }
-    }
-    
-    path.unshift(selector);
-    current = current.parentElement;
-    depth++;
+function generateCssSelector(el: any) {
+  if (!el || !el.tagName) return "";
+  const tagName = el.tagName.toLowerCase();
+  if (tagName === "html") return "html";
+  if (tagName === "body") return "body";
+
+  const getValidClasses = (element: any) => {
+    if (!element.classList) return [];
+    return Array.from(element.classList)
+      .filter((c: any) => c !== 'aerofinder-highlight-hover' && !/\d/.test(c));
+  };
+
+  const elClasses = getValidClasses(el);
+  if (elClasses.length > 0) {
+    // 가장 긴(구체적인) 클래스명을 선택 (보통 유틸리티 클래스 필터링)
+    elClasses.sort((a: any, b: any) => b.length - a.length);
+    return '.' + elClasses[0];
   }
-  
-  return path.join(" > ");
+
+  let current = el.parentElement;
+  let path = [tagName];
+
+  while (current && current.tagName.toLowerCase() !== 'body') {
+    const parentClasses = getValidClasses(current);
+    if (parentClasses.length > 0) {
+      parentClasses.sort((a: any, b: any) => b.length - a.length);
+      path.unshift('.' + parentClasses[0]);
+      break; // 부모 중 의미 있는 클래스를 가진 요소를 찾으면 탐색 중단
+    }
+    path.unshift(current.tagName.toLowerCase());
+    current = current.parentElement;
+  }
+
+  return path.join(' ');
 }
 
 function createOverlay() {
   if (document.getElementById('aerofinder-overlay-panel')) return;
-  
+
   const panel = document.createElement('div');
   panel.id = 'aerofinder-overlay-panel';
   panel.innerHTML = `
@@ -119,7 +123,7 @@ function createOverlay() {
     </div>
   `;
   document.body.appendChild(panel);
-  
+
   document.getElementById('af-btn-copy').addEventListener('click', () => {
     const text = document.getElementById('af-result').innerText;
     if (text && text.length > 0) {
