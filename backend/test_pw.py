@@ -9,11 +9,9 @@ async def test_pw():
         print("✅ playwright-stealth 2.0.2 API 목록:")
         print(dir(playwright_stealth))
         
-        # Try finding the correct class or function
-        if hasattr(playwright_stealth, 'Stealth'):
-            print("🚀 'Stealth' 클래스로 진행합니다.")
-        elif hasattr(playwright_stealth, 'stealth'):
-            print("🚀 'stealth' 함수로 진행합니다.")
+        if hasattr(playwright_stealth, 'stealth'):
+            print("🚀 'stealth' 모듈 내부 탐색:")
+            print(dir(playwright_stealth.stealth))
             
     except Exception as e:
         import traceback
