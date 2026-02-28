@@ -39,15 +39,14 @@ async def test_pw():
                 viewport={'width': 1920, 'height': 1080}
             )
             page = await context.new_page()
-            import playwright_stealth
             # 봇 방어막 우회 플러그인 장착
-            if hasattr(playwright_stealth, 'Stealth'):
-                stealth = playwright_stealth.Stealth()
-                await stealth.apply_async(page) # or whatever it uses, we will see if this fails
-            elif hasattr(playwright_stealth, 'stealth'):
-                await playwright_stealth.stealth(page)
-            elif hasattr(playwright_stealth, 'stealth_async'):
-                await playwright_stealth.stealth_async(page)
+            import inspect
+            if hasattr(playwright_stealth, 'stealth'):
+                print("🚀 'stealth' 함수(2.0.2 버전)로 진행합니다.")
+                if inspect.iscoroutinefunction(playwright_stealth.stealth):
+                    await playwright_stealth.stealth(page)
+                else:
+                    playwright_stealth.stealth(page)
             else:
                 print("❌ stealth 적용 방법을 찾지 못했습니다!")
                 return
