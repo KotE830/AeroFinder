@@ -29,7 +29,8 @@ def test_uc():
         driver = uc.Chrome(
             options=options,
             browser_executable_path=chrome_path,
-            use_subprocess=True
+            use_subprocess=True,
+            version_main=145
         )
         
         print("✅ 브라우저 열림, 진에어 접속 중...")
