@@ -20,7 +20,29 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body: payload.notification.body,
     icon: '/vite.svg', // Update icon path
+    data: { url: '/' } // Default URL to open
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  const clickUrl = event.notification.data?.url || '/';
+  
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(windowClients => {
+      // Check if there is already a window/tab open with the target URL
+      for (var i = 0; i < windowClients.length; i++) {
+        var client = windowClients[i];
+        if (client.url === clickUrl && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // If not, open a new window/tab
+      if (clients.openWindow) {
+        return clients.openWindow(clickUrl);
+      }
+    })
+  );
 });
