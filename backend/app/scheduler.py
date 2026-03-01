@@ -12,7 +12,7 @@ scheduler = AsyncIOScheduler()
 
 
 def start_scheduler():
-    interval_seconds = max(300, min(600, settings.crawl_interval_seconds))
+    interval_seconds = max(300, settings.crawl_interval_seconds) #최소 5분 이상 보장, 상한선 해제
     scheduler.add_job(run_pipeline, "interval", seconds=interval_seconds, id="notice_detection")
     scheduler.start()
     logger.info("Scheduler started: notice_detection every %s seconds", interval_seconds)
