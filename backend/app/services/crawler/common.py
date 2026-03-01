@@ -88,7 +88,7 @@ async def fetch_html(url: str) -> str:
             # Route through ScraperAPI to bypass Cloudflare
             import urllib.parse
             target_url = urllib.parse.quote(url)
-            scraper_url = f"http://api.scraperapi.com?api_key={scraper_api_key}&url={target_url}&render=true"
+            scraper_url = f"http://api.scraperapi.com?api_key={scraper_api_key}&url={target_url}&render=true&country_code=kr"
             logger.info("Routing blocked URL through ScraperAPI: %s", url)
             try:
                 # Need a longer timeout since render=true waits for JS
