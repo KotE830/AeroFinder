@@ -83,7 +83,24 @@ async def fetch_html_playwright(url: str) -> str:
 async def fetch_html(url: str) -> str:
     """URL의 HTML 본문 반환 (에러 시 빈 문자열). 먼저 httpx, 403이면 Chrome 위장 curl_cffi 재시도."""
     if "jinair.com" in url or "parataair.com" in url or "flyairseoul.com" in url:
-        return await fetch_html_drission(url)
+        scraper_api_key = getattr(settings, "scraper_api_key", None)
+        if scraper_api_key:
+            # Route through ScraperAPI to bypass Cloudflare
+            import urllib.parse
+            target_url = urllib.parse.quote(url)
+            scraper_url = f"http://api.scraperapi.com?api_key={scraper_api_key}&url={target_url}&render=true"
+            logger.info("Routing blocked URL through ScraperAPI: %s", url)
+            try:
+                # Need a longer timeout since render=true waits for JS
+                async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
+                    r = await client.get(scraper_url)
+                    r.raise_for_status()
+                    return r.text
+            except Exception as e:
+                logger.warning("ScraperAPI failed for %s: %s", url, e)
+                return ""
+        else:
+            return await fetch_html_drission(url)
         
     headers = browser_headers(url)
     try:

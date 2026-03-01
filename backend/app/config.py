@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
     firebase_credentials_path: str = "firebase-adminsdk.json"
+    scraper_api_key: str | None = None
 
 
 settings = Settings()
