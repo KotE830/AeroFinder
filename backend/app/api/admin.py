@@ -59,6 +59,25 @@ async def trigger_crawl():
     return {"status": "ok", "message": "pipeline run once"}
 
 
+@router.delete("/clear-data")
+async def clear_crawled_data(db: AsyncSession = Depends(get_db)):
+    """수집된 모든 공지(Notices)와 특가(Deals) 데이터를 초기화합니다."""
+    from sqlalchemy import delete, update
+    from app.models.db_models import Notice, Deal, MonitorUrl
+    try:
+        # Delete crawled data
+        await db.execute(delete(Deal))
+        await db.execute(delete(Notice))
+        
+        # Reset monitor urls so it triggers a fresh crawl next time
+        await db.execute(update(MonitorUrl).values(last_checked_at=None, last_html_hash=None))
+        
+        await db.commit()
+        return {"status": "ok", "message": "All crawled data (Notices, Deals) has been cleared."}
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(500, f"Failed to clear data: {e!s}")
+
 @router.post("/price-update")
 async def trigger_price_update(
     deal_id: str | None = None,

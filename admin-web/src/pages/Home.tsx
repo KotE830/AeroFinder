@@ -8,7 +8,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [crawling, setCrawling] = useState(false);
-
+  const [clearing, setClearing] = useState(false);
   useEffect(() => {
     api.airlines.list()
       .then(setAirlines)
@@ -24,6 +24,15 @@ export default function Home() {
       .finally(() => setCrawling(false));
   };
 
+  const handleClearData = () => {
+    if (!window.confirm('정말 모든 수집 데이터(공지, 특가)를 초기화하시겠습니까? 복구할 수 없습니다.')) return;
+    setClearing(true);
+    api.admin.clearData()
+      .then((res: any) => alert(res?.message || '모든 수집 데이터가 성공적으로 초기화되었습니다.'))
+      .catch((e: Error) => alert(e.message))
+      .finally(() => setClearing(false));
+  };
+
   if (loading) return <div className="page loading">항공사 목록 불러오는 중...</div>;
   if (error) return <div className="page error">오류: {error}</div>;
 
@@ -34,6 +43,9 @@ export default function Home() {
         <div className="header-actions">
           <button type="button" className="btn" onClick={handleTriggerCrawl} disabled={crawling}>
             {crawling ? '실행 중...' : '지금 크롤링'}
+          </button>
+          <button type="button" className="btn danger" onClick={handleClearData} disabled={clearing} style={{ backgroundColor: '#dc3545', color: '#fff' }}>
+            {clearing ? '초기화 중...' : '데이터 풀초기화'}
           </button>
           <Link to="/push" className="btn info" style={{ backgroundColor: '#17a2b8', color: '#fff' }}>알림 발송</Link>
           <Link to="/notices" className="btn warning" style={{ backgroundColor: '#ff9800', color: '#fff' }}>특가 관리</Link>

@@ -54,6 +54,7 @@ export const api = {
   admin: {
     siteInfo: (url) => request(`/api/admin/site-info?url=${encodeURIComponent(url)}`),
     triggerCrawl: () => request('/api/admin/crawl', { method: 'POST' }),
+    clearData: () => request('/api/admin/clear-data', { method: 'DELETE' }),
     sendPush: (body) => request('/api/admin/push', { method: 'POST', body: JSON.stringify(body) }),
   },
 };
