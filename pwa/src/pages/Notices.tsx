@@ -51,6 +51,7 @@ export default function Notices() {
       const items = res.data.items || res.data || [];
       setNotices(items);
       const uniqueAirlines = Array.from(new Set(items.map((n: Notice) => n.airline || n.airline_name || '일반 공지'))) as string[];
+      uniqueAirlines.sort((a, b) => a.localeCompare(b));
       setAirlines(uniqueAirlines);
     } catch (err) {
       console.error(err);
