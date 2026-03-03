@@ -178,7 +178,6 @@ ios/Pods/
 ios/.symlinks/
 # --- Security & Credentials ---
 firebase-adminsdk.json
-google-services.json
 GoogleService-Info.plist
 
 # --- Databases ---
