@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -44,7 +45,23 @@ class MainActivity : ComponentActivity() {
             AeroFinderTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
-                    Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+                    Column(modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+                        Box(modifier = Modifier.weight(1f)) {
+                            when (selectedTab) {
+                                0 -> {
+                                    val viewModel: DealsViewModel = viewModel()
+                                    DealsScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
+                                }
+                                1 -> {
+                                    val viewModel: NoticesViewModel = viewModel()
+                                    NoticesScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
+                                }
+                                2 -> {
+                                    val viewModel: AirlinesViewModel = viewModel()
+                                    AirlinesScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
+                                }
+                            }
+                        }
                         TabRow(selectedTabIndex = selectedTab) {
                             Tab(
                                 selected = selectedTab == 0,
@@ -61,22 +78,6 @@ class MainActivity : ComponentActivity() {
                                 onClick = { selectedTab = 2 },
                                 text = { Text("항공사") },
                             )
-                        }
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            when (selectedTab) {
-                                0 -> {
-                                    val viewModel: DealsViewModel = viewModel()
-                                    DealsScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
-                                }
-                                1 -> {
-                                    val viewModel: NoticesViewModel = viewModel()
-                                    NoticesScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
-                                }
-                                2 -> {
-                                    val viewModel: AirlinesViewModel = viewModel()
-                                    AirlinesScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
-                                }
-                            }
                         }
                     }
                 }
