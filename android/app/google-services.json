@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "237067866769",
+    "project_id": "aerofinder-98cf7",
+    "storage_bucket": "aerofinder-98cf7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237067866769:android:aff8d70783f7f4ccb36530",
+        "android_client_info": {
+          "package_name": "com.aerofinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTg074pOw4fL5GOD6r8XbXx0VOetIxGvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
