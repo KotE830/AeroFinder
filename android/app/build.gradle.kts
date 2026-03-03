@@ -18,6 +18,15 @@ android {
         buildConfigField("String", "API_BASE_URL", "\"${project.findProperty("AEROFINDER_API_BASE_URL") ?: "http://10.0.2.2:8000"}\"")
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("release.jks")
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyAlias = System.getenv("KEYALIAS_NAME") ?: ""
+            keyPassword = System.getenv("KEYALIAS_PASSWORD") ?: ""
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -25,6 +34,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
