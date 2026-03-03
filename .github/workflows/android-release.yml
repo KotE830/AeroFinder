@@ -39,14 +39,18 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYALIAS_NAME: ${{ secrets.KEYALIAS_NAME }}
           KEYALIAS_PASSWORD: ${{ secrets.KEYALIAS_PASSWORD }}
+          AEROFINDER_API_BASE_URL: ${{ vars.AEROFINDER_API_BASE_URL }}
         run: ./gradlew assembleRelease
+
+      - name: Rename APK
+        run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/AeroFinder-Android-v1.0.${{ github.run_number }}.apk
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: android/app/build/outputs/apk/release/app-release.apk
-          name: Auto-Release ${{ github.run_number }}
-          tag_name: v1.0.${{ github.run_number }}
+          files: android/app/build/outputs/apk/release/AeroFinder-Android-v1.0.${{ github.run_number }}.apk
+          name: Android Release v1.0.${{ github.run_number }}
+          tag_name: android-v1.0.${{ github.run_number }}
           draft: false
           prerelease: false
         env:
