@@ -18,9 +18,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val prefs = com.aerofinder.data.PreferencesManager(applicationContext)
         if (!prefs.isAppNotificationEnabled) return
 
-        // Handle incoming FCM messages
-        remoteMessage.notification?.let {
-            sendNotification(it.title ?: "AeroFinder", it.body ?: "")
+        // Handle incoming FCM messages (now sent as data messages)
+        val title = remoteMessage.data["title"]
+        val body = remoteMessage.data["body"]
+        
+        if (title != null && body != null) {
+            sendNotification(title, body)
         }
     }
 

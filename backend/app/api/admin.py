@@ -129,10 +129,10 @@ async def send_push_notification(req: PushNotificationRequest):
             raise HTTPException(status_code=500, detail="Firebase Admin SDK is not initialized.")
 
         message = messaging.Message(
-            notification=messaging.Notification(
-                title=req.title,
-                body=req.body,
-            ),
+            data={
+                "title": req.title,
+                "body": req.body,
+            },
             topic=req.topic,
         )
         response = messaging.send(message)
