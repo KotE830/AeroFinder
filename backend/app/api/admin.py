@@ -134,6 +134,7 @@ async def send_push_notification(req: PushNotificationRequest):
                 "body": req.body,
             },
             topic=req.topic,
+            android=messaging.AndroidConfig(priority='high'),
         )
         response = messaging.send(message)
         return {"status": "ok", "message_id": response}
