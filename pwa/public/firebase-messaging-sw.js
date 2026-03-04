@@ -16,10 +16,10 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = payload.notification.title;
+  const notificationTitle = payload.data?.title || 'AeroFinder';
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/vite.svg', // Update icon path
+    body: payload.data?.body || '',
+    icon: '/android-chrome-192x192.png', // Updated icon path
     data: { url: '/' } // Default URL to open
   };
 

@@ -43,7 +43,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val channelId = "aerofinder_deals" // Reuse the existing channel id
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(android.R.drawable.ic_dialog_info) 
+            .setSmallIcon(R.drawable.ic_notification) 
             .setContentTitle(title)
             .setContentText(messageBody)
             .setAutoCancel(true)
